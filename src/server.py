@@ -9,10 +9,12 @@ class SimpleHTTPRequestHandler(BaseHTTPRequestHandler):
         self.send_response(200)
     def do_PUT(self):
         """Respond to a PUT request."""
-
-        file_name = os.path.basename(self.path)
+        current_path = os.getcwd()
+        file_name = "data.txt"
         
-        if os.path.exists(file_name):
+        file_path = os.path.join(current_path, file_name)
+        
+        if os.path.exists(file_path):
             self.send_response(409, 'conflict')
             self.end_headers()
             reply_body = '"%s" already exists\n' % file_name
